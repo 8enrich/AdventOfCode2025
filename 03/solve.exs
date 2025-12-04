@@ -25,13 +25,9 @@ defmodule Day03 do
     |> sum()
   end
 
-  def get_maximum_voltage(number, n) do
-    get_maximum_voltage_n(number, n, [])
-  end
+  def get_maximum_voltage(number, n), do: get_maximum_voltage_n(number, n, [])
 
-  def get_maximum_voltage_n(_, n, voltage) when length(voltage) == n do
-    List.to_string(voltage)
-    end
+  def get_maximum_voltage_n(_, n, voltage) when length(voltage) == n, do: List.to_string(voltage)
 
   def get_maximum_voltage_n(number, n, voltage) do
     { first, last } = split(number, -(n - 1 - length(voltage)))
@@ -40,13 +36,9 @@ defmodule Day03 do
     get_maximum_voltage_n(elem(split(number, index + 1), 1), n, voltage ++ [value])
   end
 
-  def get_max_of_first_and_last([], last) do
-    max(last)
-  end
+  def get_max_of_first_and_last([], last), do: max(last)
 
-  def get_max_of_first_and_last(first, _) do
-    max(first)
-  end
+  def get_max_of_first_and_last(first, _), do: max(first)
 end
 
 IO.puts("01:\n" <> Integer.to_string(Day03.solve_01()))

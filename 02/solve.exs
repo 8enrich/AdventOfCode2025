@@ -64,22 +64,25 @@ defmodule Day02 do
 
   def verify_valid_number(number, index, window_size) do
     len = String.length(number)
-    cond do
-      window_size == len ->
-        false 
-      index >= len ->
-        true
+    verify_valid_number(number, index, window_size, len)
+  end
+
+  def verify_valid_number(_, _, window_size, len) when window_size == len, do: false
+
+  def verify_valid_number(_, index, _, len) when index >= len, do: true
+
+  def verify_valid_number(number, index, window_size, _) do
+    cond do  
       String.slice(number, 0, window_size) == String.slice(number, index, window_size) ->
         true and verify_valid_number(number, index + window_size, window_size)
       true ->
-        cond do
-          index < window_size + 1 ->
-            true and verify_valid_number(number, index + 1, window_size + 1)
-          true ->
-            true and verify_valid_number(number, index, window_size + 1)
-        end
-    end 
+        move_window_or_index(number, index, window_size)
+    end
   end
+
+  def move_window_or_index(number, index, window_size) when index < window_size + 1, do: true and verify_valid_number(number, index + 1, window_size + 1)
+
+  def move_window_or_index(number, index, window_size), do: true and verify_valid_number(number, index, window_size + 1)
 end
 
 IO.puts("01:\n" <> Integer.to_string(Day02.solve_01()))
