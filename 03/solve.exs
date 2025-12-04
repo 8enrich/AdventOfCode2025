@@ -33,7 +33,7 @@ defmodule Day03 do
     { first, last } = split(number, -(n - 1 - length(voltage)))
     value = get_max_of_first_and_last(first, last)
     index = Enum.find_index(number, fn x -> x == value end)
-    get_maximum_voltage_n(elem(split(number, index + 1), 1), n, voltage ++ [value])
+    get_maximum_voltage_n(drop(number, index + 1), n, voltage ++ [value])
   end
 
   def get_max_of_first_and_last([], last), do: max(last)
