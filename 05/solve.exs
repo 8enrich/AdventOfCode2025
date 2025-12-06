@@ -46,7 +46,7 @@ defmodule Day05 do
   def merge_intervals(acc, x) do
     cond do
       not(Range.disjoint?(x, last(acc))) -> 
-        elem(split(acc, -1), 0) 
+        drop(acc, -1)
           ++ [ Kernel.min(x.first, last(acc).first)..Kernel.max(x.last, last(acc).last) ]
       true ->
         acc ++ [ x ]
