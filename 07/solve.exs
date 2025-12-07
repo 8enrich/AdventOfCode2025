@@ -18,17 +18,14 @@ defmodule Day07 do
 
   def solve_01() do
     Day07.get_parsed_input("./input.txt")
-    |> split_beam()
-    |> elem(0)
+    |> get_splitter_paths()
     |> count()
   end
 
   def solve_02() do
     Day07.get_parsed_input("./input.txt")
-    |> get_paths()
-    |> Map.to_list()
-    |> sort_by(fn { _, value } -> value end, :desc) 
-    |> hd()
+    |> get_splitter_paths()
+    |> max_by(fn { _, value } -> value end)
     |> elem(1)
   end
 
@@ -36,19 +33,11 @@ defmodule Day07 do
     { Map.to_list(map) |> List.keyfind("S", 1) |> elem(0), map }
   end
 
-  def split_beam(cord_and_map, split_cords \\ MapSet.new(), cords_seen \\ MapSet.new()) do
-    { { x, y }, map } = cord_and_map
-    next_cord = { x + 1, y }
-    next_char = Map.get(map, next_cord)
-    cond do
-      next_char == nil or MapSet.member?(cords_seen, { x, y }) ->
-        { split_cords, cords_seen }
-      next_char == "." ->
-        split_beam({ next_cord, map }, split_cords, MapSet.put(cords_seen, { x, y }))
-      true -> 
-        { new_split_cords, new_cords_seen } = split_beam({ { x + 1, y + 1 }, map },  MapSet.put(split_cords, next_cord), MapSet.put(cords_seen, { x, y })) 
-        split_beam({ { x + 1, y - 1 }, map }, new_split_cords, new_cords_seen)
-    end
+  def get_splitter_paths(cord_and_map) do
+    { _, map } = cord_and_map
+    paths = get_paths(cord_and_map)
+    splitter_cords = Map.to_list(map) |> filter(fn { _, char } -> char == "^" end) |> map(fn x -> elem(x, 0) end) |> MapSet.new()
+    Map.to_list(paths) |> filter(fn { { x, y }, _ } -> MapSet.member?(splitter_cords, { x + 1, y }) end)
   end
 
   def get_paths(cord_and_map, cord_paths \\ Map.new()) do
