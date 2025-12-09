@@ -86,8 +86,7 @@ defmodule Day08 do
       len == MapSet.size(List.first(list)) ->
         connect_order ++ [ head ]
       true ->
-        list = make_connections_until_has_one_circuit(tail, len, list, connect_order ++ [ head ])
-        list
+        make_connections_until_has_one_circuit(tail, len, list, connect_order ++ [ head ])
     end
   end
 end
