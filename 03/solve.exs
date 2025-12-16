@@ -41,6 +41,6 @@ defmodule Day03 do
   def get_max_of_first_and_last(first, _), do: max(first)
 end
 
-IO.puts("01:\n" <> Integer.to_string(Day03.solve_01()))
+IO.inspect(Day03.solve_01(), label: "01")
 
-IO.puts("02:\n" <> Integer.to_string(Day03.solve_02()))
+IO.inspect(Day03.solve_02(), label: "02")

@@ -85,6 +85,6 @@ defmodule Day02 do
   def move_window_or_index(number, index, window_size), do: true and verify_valid_number(number, index, window_size + 1)
 end
 
-IO.puts("01:\n" <> Integer.to_string(Day02.solve_01()))
+IO.inspect(Day02.solve_01(), label: "01")
 
-IO.puts("02:\n" <> Integer.to_string(Day02.solve_02()))
+IO.inspect(Day02.solve_02(), label: "02")

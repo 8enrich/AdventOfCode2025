@@ -100,6 +100,6 @@ defmodule Day09 do
   end
 end
 
-IO.puts("01:\n" <> Integer.to_string(Day09.solve_01()))
+IO.inspect(Day09.solve_01(), label: "01")
 
-IO.puts("02:\n" <> Integer.to_string(Day09.solve_02()))
+IO.inspect(Day09.solve_02(), label: "02")
